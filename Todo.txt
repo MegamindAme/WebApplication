@@ -1,0 +1,5 @@
+Authentication
+Testing 
+Repository Pattern
+Well documenting swagger
+User in a Task can't be added from outside
