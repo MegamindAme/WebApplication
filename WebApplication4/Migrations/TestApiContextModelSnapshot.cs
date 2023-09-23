@@ -41,7 +41,7 @@ namespace WebApplication4.Migrations
 
             modelBuilder.Entity("WebApplication4.Models.Task", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
@@ -66,7 +66,7 @@ namespace WebApplication4.Migrations
                         .HasColumnType("varchar(250)")
                         .HasColumnName("title");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("Assignee");
 
@@ -75,7 +75,7 @@ namespace WebApplication4.Migrations
 
             modelBuilder.Entity("WebApplication4.Models.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .HasColumnType("int")
                         .HasColumnName("ID");
 
@@ -97,7 +97,7 @@ namespace WebApplication4.Migrations
                         .HasColumnType("varchar(70)")
                         .HasColumnName("username");
 
-                    b.HasKey("Id")
+                    b.HasKey("ID")
                         .HasName("PK_Users");
 
                     b.HasIndex("Password")

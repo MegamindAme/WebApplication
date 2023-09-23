@@ -32,7 +32,7 @@ public partial class TestApiContext : DbContext
         {
             entity.ToTable("tasks");
 
-            entity.Property(e => e.Id)
+            entity.Property(e => e.ID)
                 .ValueGeneratedNever()
                 .HasColumnName("ID");
             entity.Property(e => e.Assignee).HasColumnName("assignee");
@@ -55,11 +55,11 @@ public partial class TestApiContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK_Users");
+            entity.HasKey(e => e.ID).HasName("PK_Users");
 
             entity.ToTable("users");
 
-            entity.Property(e => e.Id)
+            entity.Property(e => e.ID)
                 .ValueGeneratedNever()
                 .HasColumnName("ID");
             entity.Property(e => e.Email)

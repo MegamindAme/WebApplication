@@ -60,35 +60,42 @@ namespace WebApplication4.Controllers
         }
         
         [HttpPost, Route("register")]
-        public IActionResult Register(User user)
+        public async Task<IActionResult> Register(User user)
         {
+            string? token = null;
+
+            if (string.IsNullOrEmpty(user.Username) ||
+               string.IsNullOrEmpty(user.Password) ||
+               string.IsNullOrEmpty(user.Password))
+                return BadRequest("Username and/or Password and/or Email not specified");
+
+            var userFromDb = _context.Users.Where(u => u.Username == user.Username)
+                .Where(u => u.Password == user.Password)
+                .FirstOrDefault();
+
+            if (userFromDb != null)
+            {
+                return Conflict();
+            }
+
+            user.ID = (int) new Random(100000000).Next();
+
+            _context.Users.Add(user);
+
             try
             {
-                if (string.IsNullOrEmpty(user.Username) ||
-                string.IsNullOrEmpty(user.Password) ||
-                string.IsNullOrEmpty(user.Password))
-                    return BadRequest("Username and/or Password and/or Email not specified");
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                throw;
+            }
+            //
 
-                _context.Users.Add(user);
+            try
+            {
+              
 
-                try
-                {
-                    _context.SaveChanges();
-                }
-                catch (DbUpdateException)
-                {
-                    if (UserExists(user.Id))
-                    {
-                        return Conflict();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                if (user == null)
-                {
                     var secretKey = new SymmetricSecurityKey
                     (Encoding.UTF8.GetBytes("thisisasecretkey@123"));
                     var signinCredentials = new SigningCredentials
@@ -100,9 +107,11 @@ namespace WebApplication4.Controllers
                         expires: DateTime.Now.AddMinutes(10),
                         signingCredentials: signinCredentials
                     );
-                  return Ok(new JwtSecurityTokenHandler().
-                    WriteToken(jwtSecurityToken));
-                }
+
+                    token = new JwtSecurityTokenHandler().
+                    WriteToken(jwtSecurityToken);
+
+                    Ok("Token: " + token);
             }
             catch
             {
@@ -110,11 +119,13 @@ namespace WebApplication4.Controllers
                 ("An error occurred in generating the token");
             }
 
+            return Ok("Token:" + token);
+
         }
 
         private bool UserExists(int id)
         {
-            return (_context.Users?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Users?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

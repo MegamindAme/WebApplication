@@ -25,7 +25,7 @@ namespace WebApplication4.Controllers
         }
 
         // GET: api/Tasks
-        [HttpGet, Authorize]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<Models.Task>>> GetTasks()
         {
           if (_context.Tasks == null)
@@ -58,7 +58,7 @@ namespace WebApplication4.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTask(int id, Models.Task task)
         {
-            if (id != task.Id)
+            if (id != task.ID)
             {
                 return BadRequest();
             }
@@ -100,7 +100,7 @@ namespace WebApplication4.Controllers
             }
             catch (DbUpdateException)
             {
-                if (TaskExists(task.Id))
+                if (TaskExists(task.ID))
                 {
                     return Conflict();
                 }
@@ -110,7 +110,7 @@ namespace WebApplication4.Controllers
                 }
             }
 
-            return CreatedAtAction("GetTask", new { id = task.Id }, task);
+            return CreatedAtAction("GetTask", new { id = task.ID }, task);
         }
 
         // DELETE: api/Tasks/5
@@ -135,7 +135,7 @@ namespace WebApplication4.Controllers
 
         private bool TaskExists(int id)
         {
-            return (_context.Tasks?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Tasks?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }
