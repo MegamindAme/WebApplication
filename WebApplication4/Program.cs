@@ -1,19 +1,50 @@
 using Humanizer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Configuration;
+using System.Text;
 using WebApplication4.DataDB;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
+builder.Services.AddAuthentication(x=>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(
+        authenticationScheme: JwtBearerDefaults.AuthenticationScheme,
+        configureOptions: options =>
+        {
+            options.IncludeErrorDetails = true;
+            options.TokenValidationParameters =
+            new TokenValidationParameters()
+            {
+                IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes("thisisasecretkeyanditissupposedtowork")),
+                ValidAudience = "https://localhost:44349",
+                ValidIssuer = "webapi",
+                RequireExpirationTime = true,
+                RequireAudience = true,
+                ValidateIssuer = true,
+                ValidateLifetime = true,
+                ValidateAudience = true,
+                ValidateIssuerSigningKey = true,
+            };
+
+        });
+
+builder.Services.AddAuthorization();
+
 builder.Services.AddControllers();
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
-        options => builder.Configuration.Bind("JwtSettings", options));
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(option =>
 {
@@ -45,7 +76,7 @@ builder.Services.AddSwaggerGen(option =>
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddDbContext<TestApiContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("WebApiConnectionString")));
 
@@ -60,6 +91,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +12,7 @@ using WebApplication4.Models;
 namespace WebApplication4.Controllers
 {
     //[ApiKeyAuth]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TasksController : ControllerBase
@@ -32,7 +32,9 @@ namespace WebApplication4.Controllers
           {
               return NotFound();
           }
-            return await _context.Tasks.ToListAsync();
+
+          var tasks = await _context.Tasks.ToListAsync();
+            return Ok(tasks);
         }
 
         // GET: api/Tasks/5
@@ -50,7 +52,7 @@ namespace WebApplication4.Controllers
                 return NotFound();
             }
 
-            return task;
+            return Ok(task);
         }
 
         // PUT: api/Tasks/5

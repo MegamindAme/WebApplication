@@ -37,17 +37,17 @@ namespace WebApplication4.Controllers
                 if (user != null)
                 {
                     var secretKey = new SymmetricSecurityKey
-                    (Encoding.UTF8.GetBytes("thisisasecretkey@123"));
+                    (Encoding.UTF8.GetBytes("thisisasecretkeyanditissupposedtowork"));
                     var signinCredentials = new SigningCredentials
                    (secretKey, SecurityAlgorithms.HmacSha256);
                     var jwtSecurityToken = new JwtSecurityToken(
-                        issuer: "ABCXYZ",
-                        audience: "http://localhost:51398",
+                        issuer: "webapi",
+                        audience: "https://localhost:44349",
                         claims: new List<Claim>(),
                         expires: DateTime.Now.AddMinutes(10),
                         signingCredentials: signinCredentials
                     );
-                    Ok(new JwtSecurityTokenHandler().
+                   return Ok(new JwtSecurityTokenHandler().
                     WriteToken(jwtSecurityToken));
                 }
             }
@@ -78,7 +78,7 @@ namespace WebApplication4.Controllers
                 return Conflict();
             }
 
-            user.ID = (int) new Random(100000000).Next();
+            user.ID = (int) new Random().Next(0, 100000000);
 
             _context.Users.Add(user);
 
@@ -97,12 +97,12 @@ namespace WebApplication4.Controllers
               
 
                     var secretKey = new SymmetricSecurityKey
-                    (Encoding.UTF8.GetBytes("thisisasecretkey@123"));
+                    (Encoding.UTF8.GetBytes("thisisasecretkeyanditissupposedtowork"));
                     var signinCredentials = new SigningCredentials
                    (secretKey, SecurityAlgorithms.HmacSha256);
                     var jwtSecurityToken = new JwtSecurityToken(
-                        issuer: "ABCXYZ",
-                        audience: "http://localhost:51398",
+                        issuer: "webapi",
+                        audience: "https://localhost:44349",
                         claims: new List<Claim>(),
                         expires: DateTime.Now.AddMinutes(10),
                         signingCredentials: signinCredentials
