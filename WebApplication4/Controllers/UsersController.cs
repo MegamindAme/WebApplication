@@ -12,7 +12,6 @@ using WebApplication4.Models;
 
 namespace WebApplication4.Controllers
 {
-    //[ApiKeyAuth]
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
@@ -25,6 +24,13 @@ namespace WebApplication4.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get Users
+        /// </summary>
+        /// <remarks>Get Users List</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="401">Not Authorized</response>
+        /// <response code="500">Sorry, Error on our side</response>
         // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
@@ -36,6 +42,13 @@ namespace WebApplication4.Controllers
             return await _context.Users.Include(t => t.Tasks).ToListAsync();
         }
 
+        /// <summary>
+        /// Get a User
+        /// </summary>
+        /// <remarks>Get a User by Id</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="401">Not Authorized</response>
+        /// <response code="500">Sorry, Error on our side</response>
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
@@ -54,6 +67,14 @@ namespace WebApplication4.Controllers
             return Ok(user);
         }
 
+        /// <summary>
+        /// Edit a user
+        /// </summary>
+        /// <remarks>Edit a user</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="204">Successfully Edited</response>
+        /// <response code="401">Not Authorized</response>
+        /// <response code="500">Sorry, Error on our side</response>
         // PUT: api/Users/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -85,6 +106,14 @@ namespace WebApplication4.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Add a User
+        /// </summary>
+        /// <remarks>Add a User</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="201">Successfully Created</response>
+        /// <response code="401">Not Authorized</response>
+        /// <response code="500">Sorry, Error on our side</response>
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -114,6 +143,14 @@ namespace WebApplication4.Controllers
             return CreatedAtAction("GetUser", new { id = user.ID }, user);
         }
 
+        /// <summary>
+        /// Delete a User
+        /// </summary>
+        /// <remarks>Delete a User by Id</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="204">Successfully Deleted</response>
+        /// <response code="401">Not Authorized</response>
+        /// <response code="500">Sorry, Error on our side</response>
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)

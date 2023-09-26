@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebApplication4</name>
+    </assembly>
+    <members>
+        <member name="M:WebApplication4.Controllers.UsersController.GetUsers">
+            <summary>
+            Get Users
+            </summary>
+            <remarks>Get Users List</remarks>
+            <response code="200">Successfull</response>
+            <response code="401">Not Authorized</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="M:WebApplication4.Controllers.UsersController.GetUser(System.Int32)">
+            <summary>
+            Get a User
+            </summary>
+            <remarks>Get a User by Id</remarks>
+            <response code="200">Successfull</response>
+            <response code="401">Not Authorized</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="M:WebApplication4.Controllers.UsersController.PutUser(System.Int32,WebApplication4.Models.User)">
+            <summary>
+            Edit a user
+            </summary>
+            <remarks>Edit a user</remarks>
+            <response code="200">Successfull</response>
+            <response code="204">Successfully Edited</response>
+            <response code="401">Not Authorized</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="M:WebApplication4.Controllers.UsersController.PostUser(WebApplication4.Models.User)">
+            <summary>
+            Add a User
+            </summary>
+            <remarks>Add a User</remarks>
+            <response code="200">Successfull</response>
+            <response code="201">Successfully Created</response>
+            <response code="401">Not Authorized</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="M:WebApplication4.Controllers.UsersController.DeleteUser(System.Int32)">
+            <summary>
+            Delete a User
+            </summary>
+            <remarks>Delete a User by Id</remarks>
+            <response code="200">Successfull</response>
+            <response code="204">Successfully Deleted</response>
+            <response code="401">Not Authorized</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="T:WebApplication4.Migrations.initialSetup">
+            <inheritdoc />
+        </member>
+        <member name="M:WebApplication4.Migrations.initialSetup.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:WebApplication4.Migrations.initialSetup.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:WebApplication4.Migrations.initialSetup.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

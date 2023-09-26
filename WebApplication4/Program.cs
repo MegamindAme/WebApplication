@@ -83,6 +83,9 @@ builder.Services.AddSwaggerGen(option =>
             new string[]{}
         }
     });
+
+    var filePath = Path.Combine(System.AppContext.BaseDirectory, "WebApplication4.xml");
+    option.IncludeXmlComments(filePath);
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
