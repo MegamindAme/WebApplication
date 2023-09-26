@@ -33,7 +33,7 @@ namespace WebApplication4.Controllers
           {
               return NotFound();
           }
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include(t => t.Tasks).ToListAsync();
         }
 
         // GET: api/Users/5

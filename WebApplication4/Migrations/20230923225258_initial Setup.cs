@@ -28,7 +28,7 @@ namespace WebApplication4.Migrations
                 name: "users",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false),
+                    ID = table.Column<int>(type: "int", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
                     username = table.Column<string>(type: "varchar(70)", unicode: false, maxLength: 70, nullable: true),
                     email = table.Column<string>(type: "varchar(100)", unicode: false, maxLength: 100, nullable: true),
                     password = table.Column<string>(type: "varchar(250)", unicode: false, maxLength: 250, nullable: true)
@@ -42,7 +42,7 @@ namespace WebApplication4.Migrations
                 name: "tasks",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false),
+                    ID = table.Column<int>(type: "int", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
                     title = table.Column<string>(type: "varchar(250)", unicode: false, maxLength: 250, nullable: false),
                     description = table.Column<string>(type: "varchar(250)", unicode: false, maxLength: 250, nullable: true),
                     assignee = table.Column<int>(type: "int", nullable: true),

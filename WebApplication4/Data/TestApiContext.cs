@@ -22,10 +22,6 @@ public partial class TestApiContext : DbContext
 
     public virtual DbSet<ApiKey> ApiKeys { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseSqlServer();
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<WebApplication4.Models.Task>(entity =>
@@ -33,7 +29,7 @@ public partial class TestApiContext : DbContext
             entity.ToTable("tasks");
 
             entity.Property(e => e.ID)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID");
             entity.Property(e => e.Assignee).HasColumnName("assignee");
             entity.Property(e => e.Description)
@@ -60,7 +56,7 @@ public partial class TestApiContext : DbContext
             entity.ToTable("users");
 
             entity.Property(e => e.ID)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ID");
             entity.Property(e => e.Email)
                 .HasMaxLength(100)

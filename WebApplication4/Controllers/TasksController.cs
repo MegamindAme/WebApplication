@@ -33,7 +33,7 @@ namespace WebApplication4.Controllers
               return NotFound();
           }
 
-          var tasks = await _context.Tasks.ToListAsync();
+          var tasks = await _context.Tasks.Include(u => u.AssigneeNavigation).ToListAsync();
             return Ok(tasks);
         }
 

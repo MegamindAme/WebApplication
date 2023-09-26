@@ -78,7 +78,7 @@ namespace WebApplication4.Controllers
                 return Conflict();
             }
 
-            user.ID = (int) new Random().Next(0, 100000000);
+            //user.ID = (int) new Random().Next(0, 100000000);
 
             _context.Users.Add(user);
 
