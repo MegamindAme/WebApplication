@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -21,6 +22,14 @@ namespace WebApplication4.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <remarks>Login to get a JWT token. Requires a username and a password to Login. Once authorized a token will be returned in the format {"token"}.</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="200">Successfull</response>
+        /// <response code="4**">Request not well formed/Unsuccessful login</response>
+        /// <response code="500">Sorry, Error on our side</response>
         [HttpPost, Route("login")]
         public IActionResult Login(User loginDTO)
         {
@@ -47,8 +56,8 @@ namespace WebApplication4.Controllers
                         expires: DateTime.Now.AddMinutes(10),
                         signingCredentials: signinCredentials
                     );
-                   return Ok(new JwtSecurityTokenHandler().
-                    WriteToken(jwtSecurityToken));
+                   return Ok(new object[] {new JwtSecurityTokenHandler().
+                    WriteToken(jwtSecurityToken)});
                 }
             }
             catch
@@ -58,7 +67,15 @@ namespace WebApplication4.Controllers
             }
             return Unauthorized();
         }
-        
+
+        /// <summary>
+        /// Register a new user
+        /// </summary>
+        /// <remarks>Register a new user. Requires a username, Email and password to register.Once registered a token will be returned in the format {"token"}.</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="200">Successfull</response>
+        /// <response code="4**">Request not well formed/Unsuccessful login</response>
+        /// <response code="500">Sorry, Error on our side</response>
         [HttpPost, Route("register")]
         public async Task<IActionResult> Register(User user)
         {
@@ -78,8 +95,6 @@ namespace WebApplication4.Controllers
                 return Conflict();
             }
 
-            //user.ID = (int) new Random().Next(0, 100000000);
-
             _context.Users.Add(user);
 
             try
@@ -94,8 +109,6 @@ namespace WebApplication4.Controllers
 
             try
             {
-              
-
                     var secretKey = new SymmetricSecurityKey
                     (Encoding.UTF8.GetBytes("thisisasecretkeyanditissupposedtowork"));
                     var signinCredentials = new SigningCredentials
@@ -111,16 +124,13 @@ namespace WebApplication4.Controllers
                     token = new JwtSecurityTokenHandler().
                     WriteToken(jwtSecurityToken);
 
-                    Ok("Token: " + token);
+                   return Ok(new object[] { token });
             }
             catch
             {
                 return BadRequest
                 ("An error occurred in generating the token");
             }
-
-            return Ok("Token:" + token);
-
         }
 
         private bool UserExists(int id)

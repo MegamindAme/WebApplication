@@ -4,6 +4,74 @@
         <name>WebApplication4</name>
     </assembly>
     <members>
+        <member name="M:WebApplication4.Controllers.LoginController.Login(WebApplication4.Models.User)">
+            <summary>
+            Login
+            </summary>
+            <remarks>Login to get a JWT token. Requires a username and a password to Login. Once authorized a token will be returned in the format {"token"}.</remarks>
+            <response code="200">Successfull</response>
+            <response code="200">Successfull</response>
+            <response code="4**">Request not well formed/Unsuccessful login</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="M:WebApplication4.Controllers.LoginController.Register(WebApplication4.Models.User)">
+            <summary>
+            Register a new user
+            </summary>
+            <remarks>Register a new user. Requires a username, Email and password to register.Once registered a token will be returned in the format {"token"}.</remarks>
+            <response code="200">Successfull</response>
+            <response code="200">Successfull</response>
+            <response code="4**">Request not well formed/Unsuccessful login</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="M:WebApplication4.Controllers.TasksController.GetTasks">
+            <summary>
+            Get Tasks
+            </summary>
+            <remarks>Get Tasks List</remarks>
+            <response code="200">Successfull</response>
+            <response code="401">Not Authorized</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="M:WebApplication4.Controllers.TasksController.GetTask(System.Int32)">
+            <summary>
+            Get a Task
+            </summary>
+            <remarks>Get a Task by Id</remarks>
+            <response code="200">Successfull</response>
+            <response code="401">Not Authorized</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="M:WebApplication4.Controllers.TasksController.PutTask(System.Int32,WebApplication4.Models.Task)">
+            <summary>
+            Edit a Task
+            </summary>
+            <remarks>Edit a Task</remarks>
+            <response code="200">Successfull</response>
+            <response code="204">Successfully Edited</response>
+            <response code="401">Not Authorized</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="M:WebApplication4.Controllers.TasksController.PostTask(WebApplication4.Models.Task)">
+            <summary>
+            Add a Task
+            </summary>
+            <remarks>Add a Task</remarks>
+            <response code="200">Successfull</response>
+            <response code="201">Successfully Created</response>
+            <response code="401">Not Authorized</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
+        <member name="M:WebApplication4.Controllers.TasksController.DeleteTask(System.Int32)">
+            <summary>
+            Delete a Task
+            </summary>
+            <remarks>Delete a Task by Id</remarks>
+            <response code="200">Successfull</response>
+            <response code="204">Successfully Deleted</response>
+            <response code="401">Not Authorized</response>
+            <response code="500">Sorry, Error on our side</response>
+        </member>
         <member name="M:WebApplication4.Controllers.UsersController.GetUsers">
             <summary>
             Get Users

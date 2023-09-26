@@ -24,6 +24,13 @@ namespace WebApplication4.Controllers
             _context = context;
         }
 
+        /// <summary>
+        /// Get Tasks
+        /// </summary>
+        /// <remarks>Get Tasks List</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="401">Not Authorized</response>
+        /// <response code="500">Sorry, Error on our side</response>
         // GET: api/Tasks
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Models.Task>>> GetTasks()
@@ -37,6 +44,13 @@ namespace WebApplication4.Controllers
             return Ok(tasks);
         }
 
+        /// <summary>
+        /// Get a Task
+        /// </summary>
+        /// <remarks>Get a Task by Id</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="401">Not Authorized</response>
+        /// <response code="500">Sorry, Error on our side</response>
         // GET: api/Tasks/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Models.Task>> GetTask(int id)
@@ -55,6 +69,14 @@ namespace WebApplication4.Controllers
             return Ok(task);
         }
 
+        /// <summary>
+        /// Edit a Task
+        /// </summary>
+        /// <remarks>Edit a Task</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="204">Successfully Edited</response>
+        /// <response code="401">Not Authorized</response>
+        /// <response code="500">Sorry, Error on our side</response>
         // PUT: api/Tasks/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -86,6 +108,14 @@ namespace WebApplication4.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Add a Task
+        /// </summary>
+        /// <remarks>Add a Task</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="201">Successfully Created</response>
+        /// <response code="401">Not Authorized</response>
+        /// <response code="500">Sorry, Error on our side</response>
         // POST: api/Tasks
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -115,6 +145,14 @@ namespace WebApplication4.Controllers
             return CreatedAtAction("GetTask", new { id = task.ID }, task);
         }
 
+        /// <summary>
+        /// Delete a Task
+        /// </summary>
+        /// <remarks>Delete a Task by Id</remarks>
+        /// <response code="200">Successfull</response>
+        /// <response code="204">Successfully Deleted</response>
+        /// <response code="401">Not Authorized</response>
+        /// <response code="500">Sorry, Error on our side</response>
         // DELETE: api/Tasks/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(int id)
