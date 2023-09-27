@@ -13,7 +13,7 @@ Run:
 		update-database
 
 ## Using the Api
-The root url of the app will lead you to the Swagger documentation where details of all endpoints could be found there.
+The https://{rooturl}/swagger of the app will lead you to the Swagger documentation where details of all endpoints could be found there, where rooturl is the url that the app can be reached.
 
 ### Authentication
 Use the register endpoint to register a user, and you'll get back a token which you can use to authenticate by using the Authorization header in your requests.
